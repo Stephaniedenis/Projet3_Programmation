@@ -1,43 +1,48 @@
-const express = require("express");
-const app =  express();
+'use strict';
+const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
-const homeController = require("/routes/homeController");
 const dotenv = require('dotenv');
-const path = require('path');
-dotenv.config({path : './config.env'});<
+const expressSession = require("express-session");
+const cookieParser = require("cookie-parser");
+const connectFlash = require("connect-flash");
 
-mongoose.connect(process.env.DATABASE_LOCAL, {userNewUrlParser: true});
+//const User = require('./model/user');
+const methodOverride = require('method-override');
+const path = require('path');
+const userRoutes = require('./model/user');
+dotenv.config({path: './config.env'});
+
+mongoose.connect(process.env.DATABASE_LOCAL, {useNewUrlParser: true});
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
-app.use(methodOverride('_method'));
+app.use(methodOverride('_method')); 
 
-app.set("views engine", "ejs");
-//Routes
-app.get("/", homeController.getIndex);
-app.get('/edit', homeController.getEdit);
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static('public'));
+app.set("view engine", 'ejs');
 
+app.use(cookieParser("my_secret_code"));
+app.use(expressSession({
+secret: "my_secret_code",
+cookie: {
+maxAge: 400000
+},
+resave: false,
+saveUninitialized: false
+}));
 
+app.use(connectFlash());
 
-
-const port = process.env.PORT;
-app.listen(port, ()=>{
-    console.log(`Le serveur démarre sur le http://localhost:${port}`);
+app.use((req, res, next) => {
+res.locals.flashMessages = req.flash();
+next();
 });
 
+app.use(userRoutes);
 
-
-
-
-
-
-
-
-
-
-//const port = process.env.PORT;
-app.set("port",process.env.PORT || 4000);
-
-app.listen(app.get("port"),()=>{
-    console.log(`Server running at http://localhost:${app.get("port")}`)
+const port = process.env.PORT;
+app.listen(port, ()=> {
+    console.log(`Server running at http://localhost:${ port }`);
 });
 
