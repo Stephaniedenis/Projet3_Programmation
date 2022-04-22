@@ -10,7 +10,7 @@ const connectFlash = require("connect-flash");
 //const User = require('./model/user');
 const methodOverride = require('method-override');
 const path = require('path');
-const userRoutes = require('./model/user');
+const userRoutes = require('./routes/users');
 dotenv.config({path: './config.env'});
 
 mongoose.connect(process.env.DATABASE_LOCAL, {useNewUrlParser: true});
@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(methodOverride('_method')); 
 
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static('public'));
+app.set(express.static('public'));
 app.set("view engine", 'ejs');
 
 app.use(cookieParser("my_secret_code"));

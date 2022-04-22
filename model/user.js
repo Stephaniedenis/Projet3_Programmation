@@ -7,5 +7,7 @@ const userSchema = mongoose.Schema({
     price : Number
 }
 );
+
+
 //exporter le schema
 module.exports = mongoose.model('user', userSchema);

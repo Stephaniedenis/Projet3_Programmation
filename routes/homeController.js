@@ -9,6 +9,10 @@ exports.search = (req, res)=>{
     res.render("search", {user: null});  
 };
 
+exports.registerUser = (req,res)=>{
+    
+}
+
 exports.saveUser = (req, res)=>{
     const code = req.body.code;
     const description = req.body.description;
