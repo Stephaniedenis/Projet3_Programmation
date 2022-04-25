@@ -46,8 +46,9 @@ User.findOne(searchQuery).then(user=>{
 );
 };
 
-
 exports.allUsers = (req, res)=>{
+    // const user = [{id:"23459ae120678", code: "200", description: "Amy Bienvenu", price: 500}];
+    // res.render("index", {users: user});
     User.find({}).then(user=>{
         res.render("index", {users: user});
     }).catch(

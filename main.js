@@ -13,13 +13,17 @@ const path = require('path');
 const userRoutes = require('./routes/users');
 dotenv.config({path: './config.env'});
 
-mongoose.connect(process.env.DATABASE_LOCAL, {useNewUrlParser: true});
+let databaseURL = process.env.DATABASE_LOCAL;
+databaseURL = "mongodb://localhost:27017/usersdb";
+
+mongoose.connect(databaseURL, {useNewUrlParser: true});
+
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(methodOverride('_method')); 
 
 app.set('views', path.join(__dirname, 'views'));
-app.set(express.static('public'));
+app.use('/public', express.static('public'));
 app.set("view engine", 'ejs');
 
 app.use(cookieParser("my_secret_code"));
