@@ -2,6 +2,14 @@ const express = require('express');
 const router = express.Router();
 const homeController = require('./homeController');
 
+router.get("/login", homeController.getLogin);
+// router.post("/login", homeController.postLogin);
+// router.get("/signin", homeController.getSignin);
+// router.get("/logout", isAuthenticatedUser, (req, res)=> {
+//     req.logOut() ;
+//     // etc
+// });
+
 router.get("/", homeController.allUsers);
 
 router.get("/new", homeController.getIndex);

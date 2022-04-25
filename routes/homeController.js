@@ -1,6 +1,14 @@
 'user strict';
 const User = require("../model/user");
 
+exports.getLogin = (req,res) => {
+    res.render('login');
+};
+
+exports.postLogin = (req,res) => {
+    // res.render('login');
+};
+
 exports.getIndex = (req, res)=>{
     res.render("new");
 };
@@ -50,7 +58,7 @@ exports.allUsers = (req, res)=>{
     // const user = [{id:"23459ae120678", code: "200", description: "Amy Bienvenu", price: 500}];
     // res.render("index", {users: user});
     User.find({}).then(user=>{
-        res.render("index", {users: user});
+        res.render("list", {users: user});
     }).catch(
         error=>{
             res.redirect("/");
