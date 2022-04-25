@@ -11,7 +11,7 @@ exports.search = (req, res)=>{
 
 exports.registerUser = (req,res)=>{
     
-}
+};
 
 exports.saveUser = (req, res)=>{
     const code = req.body.code;

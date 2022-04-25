@@ -7,14 +7,13 @@ const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const connectFlash = require("connect-flash");
 
-//const User = require('./model/user');
+const User = require('./model/user');
 const methodOverride = require('method-override');
 const path = require('path');
 const userRoutes = require('./routes/users');
 dotenv.config({path: './config.env'});
 
-let databaseURL = process.env.DATABASE_LOCAL;
-databaseURL = "mongodb://localhost:27017/usersdb";
+let databaseURL = process.env.DATABASE_LOCAL || "mongodb://localhost:27017/usersdb";
 
 mongoose.connect(databaseURL, {useNewUrlParser: true});
 
