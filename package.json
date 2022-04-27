@@ -20,7 +20,16 @@
     "express-session": "^1.17.2",
     "method-override": "^3.0.0",
     "mongoose": "^6.2.10",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "passport-local": "^1.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stephaniedenis/Projet3_Programmation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Stephaniedenis/Projet3_Programmation/issues"
+  },
+  "homepage": "https://github.com/Stephaniedenis/Projet3_Programmation#readme",
   "description": ""
 }
