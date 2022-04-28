@@ -4,7 +4,9 @@ const User = require("../model/user");
 exports.getLogin = (req,res) => {
     res.render('login');
 };
-
+exports.getSignup = (req, res)=>{
+    res.render('register');
+}
 exports.postLogin = (req,res) => {
     // res.render('login');
 };

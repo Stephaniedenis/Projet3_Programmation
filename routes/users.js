@@ -2,15 +2,16 @@ const express = require('express');
 const router = express.Router();
 const homeController = require('./homeController');
 
-router.get("/login", homeController.getLogin);
+router.get("/", homeController.getLogin);
 // router.post("/login", homeController.postLogin);
-// router.get("/signin", homeController.getSignin);
+router.get("/signup", homeController.getSignup);
 // router.get("/logout", isAuthenticatedUser, (req, res)=> {
 //     req.logOut() ;
 //     // etc
 // });
 router.get("/register", homeController.getRegister);
-router.get("/", homeController.allUsers);
+
+router.get("/users", homeController.allUsers);
 
 router.get("/new", homeController.getIndex);
 
