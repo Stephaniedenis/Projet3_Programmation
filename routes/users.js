@@ -9,7 +9,7 @@ router.get("/login", homeController.getLogin);
 //     req.logOut() ;
 //     // etc
 // });
-
+router.get("/register", homeController.getRegister);
 router.get("/", homeController.allUsers);
 
 router.get("/new", homeController.getIndex);

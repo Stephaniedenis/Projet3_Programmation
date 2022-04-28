@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+passportLocalMongoose = require("passedport-local-mongoose");
 const subscriberSchema = new mongoose.Schema({
     name: {
         type: String,

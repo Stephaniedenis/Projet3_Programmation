@@ -8,6 +8,9 @@ exports.getLogin = (req,res) => {
 exports.postLogin = (req,res) => {
     // res.render('login');
 };
+exports.getRegister = (req,res)=>{
+    res.render('register');
+}
 
 exports.getIndex = (req, res)=>{
     res.render("new");

@@ -6,8 +6,9 @@ const dotenv = require('dotenv');
 const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const connectFlash = require("connect-flash");
-
+const password = require('passport');
 const User = require('./model/user');
+const localStartegy = require("passport-local"). Strategy;
 const methodOverride = require('method-override');
 const path = require('path');
 const userRoutes = require('./routes/users');
