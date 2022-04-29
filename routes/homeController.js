@@ -1,5 +1,6 @@
 'user strict';
-const User = require("../model/user");
+const Product = require("../model/product");
+
 
 exports.getLogin = (req,res) => {
     res.render('login');
@@ -19,20 +20,17 @@ exports.getIndex = (req, res)=>{
 };
 
 exports.search = (req, res)=>{
-    res.render("search", {user: null});  
+    res.render("search", {product: null});  
 };
 
-exports.registerUser = (req,res)=>{
-    
-};
 
-exports.saveUser = (req, res)=>{
+exports.saveProduct = (req, res)=>{
     const code = req.body.code;
     const description = req.body.description;
     const price = req.body.price;
 
-    const newUser = new User({code: code, description: description, price: price});
-    newUser.save()
+    const newProduct = new Product({code: code, description: description, price: price});
+    newProduct.save()
     .then(result=> {
         req.flash("success_msg", "Product Data added To Database successfully");
         res.redirect("/");})
@@ -43,11 +41,11 @@ exports.saveUser = (req, res)=>{
 
 };
 
-exports.FindOneUser = (req, res)=>{
+exports.FindOneProduct = (req, res)=>{
 const searchQuery = {code: req.query.code};
-User.findOne(searchQuery).then(user=>{
-    if (user !== null) {
-        res.render("search", {user: user});
+Product.findOne(searchQuery).then(product=>{
+    if (product !== null) {
+        res.render("search", {product: product});
     } else {
         req.flash("error_msg", "Product does not exist with this name");
         res.redirect("/product/search");
@@ -59,11 +57,11 @@ User.findOne(searchQuery).then(user=>{
 );
 };
 
-exports.allUsers = (req, res)=>{
+exports.allProducts = (req, res)=>{
     // const user = [{id:"23459ae120678", code: "200", description: "Amy Bienvenu", price: 500}];
     // res.render("index", {users: user});
-    User.find({}).then(user=>{
-        res.render("list", {users: user});
+    Product.find({}).then(product=>{
+        res.render("list", {product: product});
     }).catch(
         error=>{
             res.redirect("/");
@@ -71,21 +69,21 @@ exports.allUsers = (req, res)=>{
     );
 };
 
-exports.editUser = (req, res)=>{
+exports.editProduct = (req, res)=>{
     const searchById = {_id: req.params.id};
-    User.findOne(searchById).then(
-        user=>{res.render("edit", {user: user});}
+    Product.findOne(searchById).then(
+        product=>{res.render("edit", {product: product});}
     ).catch(error => {res.redirect("/");});
 
 };
 
 exports.update = (req, res)=>{
     const searchQuery = {_id: req.params.id};
-    User.updateOne(searchQuery, {$set: {
+    Product.updateOne(searchQuery, {$set: {
         code: req.body.code,
         description: req.body.description,
         price: req.body.price,
-    }}).then((user)=>{
+    }}).then((product)=>{
         req.flash("success_msg", "Product data updated successfully");
         res.redirect("/");
     })
@@ -100,7 +98,7 @@ exports.update = (req, res)=>{
 exports.delete = (req, res)=>{
 
     const searchQuery = {_id: req.params.id}; 
-    User.deleteOne(searchQuery).then(()=>{
+    Product.deleteOne(searchQuery).then(()=>{
         req.flash("success_msg", "Product deleted successfully");
         res.redirect("/");
     }).catch(error=>{

@@ -12,17 +12,17 @@
             </tr>
         </thead>
         <tbody>
-            <% users.forEach((user)=> { %>
+            <% product.forEach((product)=> { %>
                 <tr>
-                    <td><%= user.code %></td>
-                    <td><%= user.description %></td>
-                    <td><%= user.price %>$</td>
+                    <td><%= product.code %></td>
+                    <td><%= product.description %></td>
+                    <td><%= product.price %>$</td>
                     <td>
    
-                       <form style="display: inline;" action="/delete/<%= user.id %>?_method=DELETE" method="POST">
+                       <form style="display: inline;" action="/delete/<%= product.id %>?_method=DELETE" method="POST">
                             <button style="cursor: pointer;" type="submit" class="btn btn-danger ml-2">Delete</button>
                         </form>
-                        <a style="display: inline;" href="/edit/<%= user.id %>">
+                        <a style="display: inline;" href="/edit/<%= product.id %>">
                             <button style="cursor: pointer;" type="submit" class="btn btn-primary ml-2">Edit</button>
                         </a>
                     </td>

@@ -3,12 +3,12 @@
 
     <h2 class="mb-4">Update Product</h2>
   
-    <form action="/edit/<%= user._id %>?_method=PUT" method="POST">
+    <form action="/edit/<%= product._id %>?_method=PUT" method="POST">
       <input type="text" name="code" id="code" value="<%= user.code %>" class="form-control">
       <br>
-      <input type="text" name="description" id="description" value="<%= user.description %>" class="form-control" >
+      <input type="text" name="description" id="description" value="<%= product.description %>" class="form-control" >
       <br>
-      <input type="number" name="price" id="price" value="<%= user.price %>" class="form-control" >
+      <input type="number" name="price" id="price" value="<%= product.price %>" class="form-control" >
       <br>    
     <input class="btn btn-info form-control" type="submit" value="Add to Database">
       </div>
