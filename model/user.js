@@ -22,4 +22,6 @@ userSchema.plugin(passportLocalMongoose, {
 userSchema.methods.getInfo = function(){
     return `Name: ${this.name} Email: ${this.email} Password: ${this.password}`
 };
+
+
 module.exports = mongoose.model("User", userSchema);

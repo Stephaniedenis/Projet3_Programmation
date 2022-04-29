@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const connectFlash = require("connect-flash");
 const passport = require('passport');
 const User = require('./model/user');
-
+const expressValidator = require("express-validator");
 const localStartegy = require("passport-local"). Strategy;
 const methodOverride = require('method-override');
 const path = require('path');
@@ -24,19 +24,12 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(methodOverride('_method')); 
 
+app.use(expressValidator());
+
 app.set('views', path.join(__dirname, 'views'));
 app.use('/public', express.static('public'));
 app.set("view engine", 'ejs');
 
-//app.use(cookieParser("my_secret_code"));
-//app.use(expressSession({
-//secret: "my_secret_code",
-//cookie: {
-//maxAge: 400000
-//},
-//resave: false,
-//saveUninitialized: false
-//}));
 app.use(cookieParser("secret_passcode"));
 app.use(
     session({
@@ -55,31 +48,10 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-saveUser: (req,res,next)=>{
-    if(req.skip) next();
-    let userParams ={
-        name: req.body.name,
 
-    email : req.body.email,
-};
-    let newUser = new User(userParams);
-    console.log(newUser);
-    User.register(newUser, req.body.password, (error, user)=>{
-        if(error){
-            console.log(error);
-            res.locals.redirect = "/users/new";
-            next();
-        }
-        else{
-            res.locals.redirect = "/users";
-            next();
-        }
-    });
-},
+
 
 app.use(connectFlash());
-
-
 
 app.use((req, res, next) => {
 res.locals.flashMessages = req.flash();

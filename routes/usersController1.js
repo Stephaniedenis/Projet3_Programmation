@@ -1,6 +1,7 @@
 const User = require('../model/user');
 const passport = require("passport");
 
+
 module.exports={
 
 authenticate : passport.authenticate("local",{
@@ -9,7 +10,19 @@ authenticate : passport.authenticate("local",{
     successRedirect : "/",
     successFlash: {type: "success_msg", message: ""}
 }),
-
-
+validate : (req,res, next)=>{
+    req.sanitizeBody("email").normalizeEmail({
+        all_lowercase: true}).trim();
+        req.check("email","Email is invalid").isEmail();
+        req.check("password","Password cannot be empty").notEmpty();
+        req.getValidationResult().then((error)=>{
+            if(!error.isEmpty()){
+                render.skip= true;
+                res.locals.redirect = "/users/new";
+                next();
+            }
+        });
+    }
 }
+
 

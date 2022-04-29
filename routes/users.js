@@ -4,16 +4,22 @@ const homeController = require('./homeController');
 const usersController1 = require('./usersController1');
 
 router.get("/", homeController.getLogin);
+
+router.post("/register", usersController1.validate);
+
 router.get("/login", homeController.getLogin);
+
 router.post("/login", usersController1.authenticate);
+
 router.get("/signup", homeController.getSignup);
+
 // router.get("/logout", isAuthenticatedUser, (req, res)=> {
 //     req.logOut() ;
 //     // etc
 // });
 router.get("/register", homeController.getRegister);
 
-router.get("/users", homeController.allProducts);
+router.get("/list", homeController.allProducts);
 
 router.get("/new", homeController.getIndex);
 
