@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const homeController = require('./homeController');
 const usersController1 = require('./usersController1');
+const User = require('../model/user')
 
-router.get("/", homeController.getLogin);
+//router.get("/", homeController.getLogin);
+router.get('/', homeController.allUsers);
 
-router.post("/register", usersController1.validate);
+router.post("/user/new", homeController.saveUser);
 
 router.get("/login", homeController.getLogin);
 
@@ -13,15 +15,17 @@ router.post("/login", usersController1.authenticate);
 
 router.get("/signup", homeController.getSignup);
 
-// router.get("/logout", isAuthenticatedUser, (req, res)=> {
-//     req.logOut() ;
+//router.get("/logout", isAuthenticatedUser, (req, res)=> {
+//req.logOut() ;
 //     // etc
 // });
 router.get("/register", homeController.getRegister);
 
 router.get("/list", homeController.allProducts);
 
-router.get("/new", homeController.getIndex);
+router.get("/user/new", homeController.getIndex);
+
+router.get("/:id", homeController.FindOneUser);
 
 router.post("/new", homeController.saveProduct);
 

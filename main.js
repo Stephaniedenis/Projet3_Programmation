@@ -22,6 +22,7 @@ mongoose.connect(databaseURL, {useNewUrlParser: true});
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+app.use('api/users', userRoutes);
 app.use(methodOverride('_method')); 
 
 app.use(expressValidator());

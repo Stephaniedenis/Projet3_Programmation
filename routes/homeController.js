@@ -1,5 +1,6 @@
 'user strict';
 const Product = require("../model/product");
+const User = require("../model/user");
 
 
 exports.getLogin = (req,res) => {
@@ -14,34 +15,65 @@ exports.getRegister = (req,res)=>{
 }
 
 exports.getIndex = (req, res)=>{
-    res.render("new");
+    res.render("/user/new");
 };
 
 exports.search = (req, res)=>{
     res.render("search", {product: null});  
 };
 exports.saveUser = (req,res)=>{
-        if(req.skip) next();
-        let userParams ={
-            name: req.body.name,
-            email : req.body.email,
-            password : req.body.password
-    };
-        let newUser = new User(userParams);
-        console.log(newUser);
-        User.register(newUser, req.body.password, (error, user)=>{
-            if(error){
-                console.log(error);
-                res.locals.redirect = "/users/new";
-                next();
-            }
-            else{
-                res.locals.redirect = "/users";
-                next();
-            }
-        });
-    },
+        console.log(req.body)
+        name = req.body.name,
+        email = req.body.email,
+        password = req.body.password
+        //let userParams ={
+            //name: req.body.name,
+           // email : req.body.email,
+           // password : req.body.password
+    
+    let newUser = new User ({name: name, email: email, password: password});
 
+    newUser.save()
+    .then((address)=>{
+        res.render("login");
+    })
+    .catch((err)=>{
+        console.log(error);
+    });
+       // let newUser = new User(userParams);
+        //console.log(newUser);
+        //User.register(newUser, req.body.password, (error, user)=>{
+            //if(error){
+               //console.log(error);
+                //res.locals.redirect = "/users/new";
+               // next();
+            };
+            //else{
+                //res.locals.redirect = "/users";
+               // next();
+           // }
+        //});
+   // },
+    exports.FindOneUser = (req,res)=>{
+
+        let searchQuery = {_id : req.params.id};
+        User.findOne(searchQuery)
+        .then(user =>{
+            res.send(user);
+        })
+        .catch(err =>{
+            res.redirect('/');
+        });
+    };
+exports.allUsers = (req, res)=>{
+    User.find({})
+    .then(user =>{
+        res.render('login', {users : users});
+    })
+    .catch(err =>{
+        res.redirect('/');
+    })
+}
 
 exports.saveProduct = (req, res)=>{
     const code = req.body.code;
