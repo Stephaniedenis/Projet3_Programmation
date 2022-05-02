@@ -37,7 +37,7 @@ exports.saveUser = (req,res)=>{
     .then((address)=>{
         res.render("login");
     })
-    .catch((err)=>{
+    .catch((error)=>{
         console.log(error);
     });
        // let newUser = new User(userParams);
@@ -61,8 +61,8 @@ exports.saveUser = (req,res)=>{
         .then(user =>{
             res.send(user);
         })
-        .catch(err =>{
-            res.redirect('/');
+        .catch(error =>{
+            res.redirect('error');
         });
     };
 exports.allUsers = (req, res)=>{
@@ -70,8 +70,8 @@ exports.allUsers = (req, res)=>{
     .then(user =>{
         res.render('login', {users : users});
     })
-    .catch(err =>{
-        res.redirect('/');
+    .catch(error =>{
+        res.redirect('/login');
     })
 }
 
@@ -84,7 +84,7 @@ exports.saveProduct = (req, res)=>{
     newProduct.save()
     .then(result=> {
         req.flash("success_msg", "Product Data added To Database successfully");
-        res.redirect("/");})
+        res.redirect("/edit");})
     .catch(error=>{
         req.flash("error_msg", "Product not added");
         console.log(error);
@@ -104,7 +104,7 @@ Product.findOne(searchQuery).then(product=>{
 })
     .catch(error=>{   
         req.flash("error_msg", " not found");
-    res.redirect("/");}
+    res.redirect("/list");}
 );
 };
 
@@ -115,7 +115,7 @@ exports.allProducts = (req, res)=>{
         res.render("list", {product: product});
     }).catch(
         error=>{
-            res.redirect("/");
+            res.redirect("error");
         }
     );
 };
@@ -124,7 +124,7 @@ exports.editProduct = (req, res)=>{
     const searchById = {_id: req.params.id};
     Product.findOne(searchById).then(
         product=>{res.render("edit", {product: product});}
-    ).catch(error => {res.redirect("/");});
+    ).catch(error => {res.redirect("/list");});
 
 };
 
@@ -136,11 +136,11 @@ exports.update = (req, res)=>{
         price: req.body.price,
     }}).then((product)=>{
         req.flash("success_msg", "Product data updated successfully");
-        res.redirect("/");
+        res.redirect("/list");
     })
     .catch(error => {
         req.flash("error_msg", "Product not deleted");
-        res.redirect("/");});
+        res.redirect("/list");});
 
 };
 
@@ -151,10 +151,10 @@ exports.delete = (req, res)=>{
     const searchQuery = {_id: req.params.id}; 
     Product.deleteOne(searchQuery).then(()=>{
         req.flash("success_msg", "Product deleted successfully");
-        res.redirect("/");
+        res.redirect("/list");
     }).catch(error=>{
         req.flash("error_msg", "Product not deleted");
-        res.redirect("/");
+        res.redirect("/list");
     });
 
 };

@@ -1,6 +1,6 @@
 const User = require('../model/user');
 const passport = require("passport");
-
+const validate = require('express-validator');
 
 module.exports={
 

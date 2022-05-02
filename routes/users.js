@@ -7,7 +7,7 @@ const User = require('../model/user')
 //router.get("/", homeController.getLogin);
 router.get('/', homeController.allUsers);
 
-router.post("/user/new", homeController.saveUser);
+router.post("/user/new", usersController1.authenticate);
 
 router.get("/login", homeController.getLogin);
 
