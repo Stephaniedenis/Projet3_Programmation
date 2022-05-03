@@ -1,5 +1,6 @@
 'user strict';
 const Product = require("../model/product");
+const user = require("../model/user");
 const User = require("../model/user");
 
 
@@ -24,7 +25,7 @@ exports.getNew = (req, res)=>{
 exports.search = (req, res)=>{
     res.render("search", {product: null});  
 };
-exports.saveUser = (req,res)=>{
+exports.saveUser = (req,res, next)=>{
 
     let name = req.body.name;
     let email = req.body.email;
@@ -32,14 +33,14 @@ exports.saveUser = (req,res)=>{
     
     let newUser = new User({name: name, email: email, password: password});
 
-    newUser.save()
-    .then((address)=>{
-        res.render("login");
-    })
-    .catch((error)=>{
-        console.log(error);
-    });
-
+   User.register(newUser, req.body.password, (error, user)=>{
+       if (error){
+           next();
+       }else{
+           res.render("login");
+           next();
+       }
+   })
  };
 
 exports.redirect= (req, res)=>{
