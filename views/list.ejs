@@ -12,6 +12,7 @@
             </tr>
         </thead>
         <tbody>
+            <% if (product){%> 
             <% product.forEach((product)=> { %>
                 <tr>
                     <td><%= product.code %></td>
@@ -27,7 +28,7 @@
                         </a>
                     </td>
                 </tr>
-           <% }) %>
+           <% } )} %>
         </tbody>
 
     </table>

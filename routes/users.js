@@ -4,10 +4,10 @@ const homeController = require('./homeController');
 const usersController1 = require('./usersController1');
 const User = require('../model/user')
 
-//router.get("/", homeController.getLogin);
-router.get('/', homeController.allUsers);
 
-router.post("/user/new", usersController1.authenticate);
+router.get('/', homeController.redirect);
+
+router.post("/userNew", homeController.saveUser);
 
 router.get("/login", homeController.getLogin);
 
@@ -15,23 +15,17 @@ router.post("/login", usersController1.authenticate);
 
 router.get("/signup", homeController.getSignup);
 
-//router.get("/logout", isAuthenticatedUser, (req, res)=> {
-//req.logOut() ;
-//     // etc
-// });
 router.get("/register", homeController.getRegister);
 
-router.get("/list", homeController.allProducts);
+router.get("/list", homeController.allProducts, homeController.getIndex);
 
-router.get("/user/new", homeController.getIndex);
-
-router.get("/:id", homeController.FindOneUser);
+router.get("/new", homeController.getNew);
 
 router.post("/new", homeController.saveProduct);
 
-router.get("/product/search", homeController.search);
+router.get("/search", homeController.search);
 
-router.get("/search", homeController.FindOneProduct);
+router.get("/searchOne", homeController.FindOneProduct);
 
 router.get("/edit/:id", homeController.editProduct);
 

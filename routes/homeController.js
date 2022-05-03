@@ -15,23 +15,22 @@ exports.getRegister = (req,res)=>{
 }
 
 exports.getIndex = (req, res)=>{
-    res.render("/user/new");
+    res.render("list");
+};
+exports.getNew = (req, res)=>{
+    res.render("new");
 };
 
 exports.search = (req, res)=>{
     res.render("search", {product: null});  
 };
 exports.saveUser = (req,res)=>{
-        console.log(req.body)
-        name = req.body.name,
-        email = req.body.email,
-        password = req.body.password
-        //let userParams ={
-            //name: req.body.name,
-           // email : req.body.email,
-           // password : req.body.password
+
+    let name = req.body.name;
+    let email = req.body.email;
+    let password = req.body.password;
     
-    let newUser = new User ({name: name, email: email, password: password});
+    let newUser = new User({name: name, email: email, password: password});
 
     newUser.save()
     .then((address)=>{
@@ -40,39 +39,11 @@ exports.saveUser = (req,res)=>{
     .catch((error)=>{
         console.log(error);
     });
-       // let newUser = new User(userParams);
-        //console.log(newUser);
-        //User.register(newUser, req.body.password, (error, user)=>{
-            //if(error){
-               //console.log(error);
-                //res.locals.redirect = "/users/new";
-               // next();
-            };
-            //else{
-                //res.locals.redirect = "/users";
-               // next();
-           // }
-        //});
-   // },
-    exports.FindOneUser = (req,res)=>{
 
-        let searchQuery = {_id : req.params.id};
-        User.findOne(searchQuery)
-        .then(user =>{
-            res.send(user);
-        })
-        .catch(error =>{
-            res.redirect('error');
-        });
-    };
-exports.allUsers = (req, res)=>{
-    User.find({})
-    .then(user =>{
-        res.render('login', {users : users});
-    })
-    .catch(error =>{
-        res.redirect('/login');
-    })
+ };
+
+exports.redirect= (req, res)=>{
+    res.redirect("/list")
 }
 
 exports.saveProduct = (req, res)=>{
@@ -94,30 +65,37 @@ exports.saveProduct = (req, res)=>{
 
 exports.FindOneProduct = (req, res)=>{
 const searchQuery = {code: req.query.code};
-Product.findOne(searchQuery).then(product=>{
+Product.findOne(searchQuery)
+.then(product=>{
     if (product !== null) {
         res.render("search", {product: product});
     } else {
         req.flash("error_msg", "Product does not exist with this name");
-        res.redirect("/product/search");
+        res.redirect("/search");
+        
     }
 })
-    .catch(error=>{   
-        req.flash("error_msg", " not found");
-    res.redirect("/list");}
-);
+.catch(error=>{   
+    req.flash("error_msg", " not found");
+    res.redirect("/search");
+});
 };
 
-exports.allProducts = (req, res)=>{
-    // const user = [{id:"23459ae120678", code: "200", description: "Amy Bienvenu", price: 500}];
-    // res.render("index", {users: user});
-    Product.find({}).then(product=>{
-        res.render("list", {product: product});
-    }).catch(
-        error=>{
-            res.redirect("error");
-        }
-    );
+exports.allProducts = (req, res, next)=>{
+    if (req.isAuthenticated()){
+        Product.find({})
+        .then(product=>{
+            res.locals.product = product;
+            next();
+        }).catch(
+            error=>{
+                res.redirect("/list");
+            }
+        );
+    }else{
+        res.locals.product = undefined;
+        next();
+    }
 };
 
 exports.editProduct = (req, res)=>{
