@@ -25,7 +25,7 @@ exports.getNew = (req, res)=>{
 exports.search = (req, res)=>{
     res.render('search', {product: null});  
 };
-exports.saveUser = (req,res, next)=>{
+exports.saveUser = (req, res, next)=>{
 
     let name = req.body.name;
     let email = req.body.email;
