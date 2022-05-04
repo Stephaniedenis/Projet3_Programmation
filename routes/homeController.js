@@ -16,14 +16,14 @@ exports.getRegister = (req,res)=>{
 }
 
 exports.getIndex = (req, res)=>{
-    res.render("list");
+    res.render('list');
 };
 exports.getNew = (req, res)=>{
-    res.render("new");
+    res.render('new');
 };
 
 exports.search = (req, res)=>{
-    res.render("search", {product: null});  
+    res.render('search', {product: null});  
 };
 exports.saveUser = (req,res, next)=>{
 
@@ -37,7 +37,7 @@ exports.saveUser = (req,res, next)=>{
        if (error){
            next();
        }else{
-           res.render("login");
+           res.render('login');
            next();
        }
    })
@@ -59,7 +59,7 @@ exports.saveProduct = (req, res)=>{
         res.redirect("/edit");})
     .catch(error=>{
         req.flash("error_msg", "Product not added");
-        console.log(error);
+        console.log('/list');
     });
 
 };
