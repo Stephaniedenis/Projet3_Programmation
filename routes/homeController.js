@@ -1,6 +1,5 @@
 'user strict';
 const Product = require("../model/product");
-const user = require("../model/user");
 const User = require("../model/user");
 
 
@@ -9,11 +8,7 @@ exports.getLogin = (req,res) => {
 };
 exports.getSignup = (req, res)=>{
     res.render('register');
-}
-
-exports.getRegister = (req,res)=>{
-    res.render('register');
-}
+};
 
 exports.getIndex = (req, res)=>{
     res.render('list');
@@ -40,7 +35,7 @@ exports.saveUser = (req, res, next)=>{
            res.render('login');
            next();
        }
-   })
+   });
  };
 
 exports.redirect= (req, res)=>{
