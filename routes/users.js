@@ -8,7 +8,7 @@ const usersController1 = require('./usersController1');
 router.get('/', homeController.redirect);
 router.get('/index', homeController.redirect);
 
-router.post("/userNew", usersController1.validate, homeController.saveUser);
+router.post("/userNew", homeController.saveUser);
 
 router.get("/login", homeController.getLogin);
 

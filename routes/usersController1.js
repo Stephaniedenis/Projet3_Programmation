@@ -19,26 +19,6 @@ ensureAuthenticated : (req,res,next) => {
     res.redirect('/login');
 },
 
-validate : (req,res,next) => {
-    req.sanitizeBody("email").normalizeEmail({all_lowercase : true}).trim();
-    req.check().isEmail();
-    req.check("password").notEmpty();
-    req.getValidationResult().then(result=>{
-        if (!result.isEmpty()) {
-            req.skip = true;
-            res.locals.redirect = "users/new";
-            next();
-        }
-        else
-        {
-            next();
-        }
-    })
-    .catch(error => {
-        next(error);
-    });
-},
-
 logout : (req,res,next) => {
     if(req.isAuthenticated()) {
         req.logout();

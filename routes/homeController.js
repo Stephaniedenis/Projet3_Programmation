@@ -32,7 +32,9 @@ exports.saveUser = (req, res, next)=>{
 
     User.register(newUser, req.body.password, (error, user)=>{
         if (error){
-            next();
+            req.flash("error_msg", error.message);
+            res.redirect('/signup');
+            next(error);
         }else{
             res.render('login');
             next();
@@ -53,10 +55,10 @@ exports.saveProduct = (req, res)=>{
     newProduct.save()
     .then(result=> {
         req.flash("success_msg", "Product Data added To Database successfully");
-        res.redirect("/edit");})
+        res.redirect("/list");})
     .catch(error=>{
         req.flash("error_msg", "Product not added");
-        console.log('/list');
+        console.log('/edit');
     });
 
 };
