@@ -26,13 +26,13 @@ router.post("/new", usersController1.ensureAuthenticated, homeController.savePro
 
 router.get("/search", usersController1.ensureAuthenticated, homeController.search);
 
-router.get("/searchOne", homeController.FindOneProduct);
+router.get("/searchOne", usersController1.ensureAuthenticated, homeController.FindOneProduct);
 
-router.get("/edit/:id", homeController.editProduct);
+router.get("/edit/:id",  usersController1.ensureAuthenticated, homeController.editProduct);
 
-router.put("/edit/:id", homeController.update);
+router.put("/edit/:id",  usersController1.ensureAuthenticated, homeController.update);
 
-router.delete("/delete/:id", homeController.delete);
+router.delete("/delete/:id",  usersController1.ensureAuthenticated, homeController.delete);
 
 
 module.exports = router;
