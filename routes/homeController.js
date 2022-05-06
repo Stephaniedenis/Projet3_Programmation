@@ -22,20 +22,22 @@ exports.search = (req, res)=>{
 };
 exports.saveUser = (req, res, next)=>{
 
+    if(req.skip) next();
+
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
     
     let newUser = new User({name: name, email: email, password: password});
 
-   User.register(newUser, req.body.password, (error, user)=>{
-       if (error){
-           next();
-       }else{
-           res.render('login');
-           next();
-       }
-   });
+    User.register(newUser, req.body.password, (error, user)=>{
+        if (error){
+            next();
+        }else{
+            res.render('login');
+            next();
+        }
+    });
  };
 
 exports.redirect= (req, res)=>{

@@ -72,6 +72,11 @@ res.locals.flashMessages = req.flash();
 next();
 });
 
+app.use((req, res, next) => {
+    res.locals.user = req.user;
+    next();
+});
+
 app.use(userRoutes);
 
 const port = process.env.PORT;

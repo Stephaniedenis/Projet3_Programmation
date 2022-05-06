@@ -6,24 +6,25 @@ const usersController1 = require('./usersController1');
 
 
 router.get('/', homeController.redirect);
+router.get('/index', homeController.redirect);
 
-router.post("/userNew", homeController.saveUser);
+router.post("/userNew", usersController1.validate, homeController.saveUser);
 
 router.get("/login", homeController.getLogin);
 
-router.post("/login", usersController1.authenticate);
+router.post("/login", usersController1.authenticate); //, usersController1.redirectView);
 
 router.get("/signup", homeController.getSignup);
 
-// router.get("/logout", homeController.getLogout);
+router.get("/logout", usersController1.logout, homeController.getLogin);
 
 router.get("/list", homeController.allProducts, homeController.getIndex);
 
-router.get("/new", homeController.getNew);
+router.get("/new", usersController1.ensureAuthenticated, homeController.getNew);
 
-router.post("/new", homeController.saveProduct);
+router.post("/new", usersController1.ensureAuthenticated, homeController.saveProduct);
 
-router.get("/search", homeController.search);
+router.get("/search", usersController1.ensureAuthenticated, homeController.search);
 
 router.get("/searchOne", homeController.FindOneProduct);
 
