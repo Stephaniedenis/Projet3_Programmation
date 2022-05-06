@@ -22,6 +22,7 @@ ensureAuthenticated : (req,res,next) => {
 logout : (req,res,next) => {
     if(req.isAuthenticated()) {
         req.logout();
+        res.locals.user = undefined; // patch!
     }
     next();
 },
